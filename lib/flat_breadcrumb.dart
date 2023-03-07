@@ -8,24 +8,30 @@ class FlatBreadcrumb extends StatelessWidget {
   final List<Widget> _sampleItems = [
     BreadcrumbItem(isFirst: true),
     BreadcrumbItem(),
+    BreadcrumbItem(),
+    BreadcrumbItem(),
+    BreadcrumbItem(),
     BreadcrumbItem(isLast: true),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: _sampleItems.length,
-        itemBuilder: (context, index) => Transform.translate(
-          offset: Offset(-20.0 * index, 0),
-          child: SizedBox(
-            width: 100,
-            height: 50,
-            child: _sampleItems[index],
-          ),
-        ),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: _sampleItems
+            .asMap()
+            .map((i, e) => MapEntry(
+                i,
+                Transform.translate(
+                    offset: Offset(-20.0 * i, 0),
+                    child: SizedBox(
+                      width: 100,
+                      height: 50,
+                      child: _sampleItems[i],
+                    ))))
+            .values
+            .toList(),
       ),
     );
   }
